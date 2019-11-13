@@ -1,0 +1,37 @@
+version: '2'
+services:
+  wp5_db:
+    image: percona/percona-server:5.7
+    container_name: perconaserver5
+    volumes:
+      - db_data5:/var/lib/mysql
+    command:
+      --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci
+    restart: always
+    ports:
+      - 3310:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: wp5
+    network_mode: bridge
+
+  wp5:
+    container_name: meusite_com_br5
+    image: luizeof/dockerpress
+    working_dir: /var/www/html
+    volumes:
+      - meusite_com_br:/var/www/html
+    ports:
+      - 8010:80
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: 45.77.93.228:3310
+      WORDPRESS_DB_USER: root
+      WORDPRESS_DB_PASSWORD: wp5
+      WORDPRESS_DB_NAME: wp5
+      VIRTUAL_HOST: wp5.mobidickhost.com.br
+      LETSENCRYPT_HOST: wp5.mobidickhost.com.br
+      LETSENCRYPT_EMAIL: mquevedo@agenciamobidick.com.br
+    network_mode: bridge
+       
+volumes:
+  db_data5:
