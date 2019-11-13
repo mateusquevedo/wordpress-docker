@@ -4,7 +4,7 @@ services:
     image: percona/percona-server:5.7
     container_name: ${NOME_SITE}_db
     volumes:
-      - db:/var/lib/mysql
+      - ${NOME_SITE}_db:/var/lib/mysql
     command:
       --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci
     restart: always
@@ -19,9 +19,9 @@ services:
     image: luizeof/dockerpress
     working_dir: /var/www/html
     volumes:
-      - html:/var/www/html
+      - ${NOME_SITE}_html:/var/www/html
     ports:
-      - 8010:80
+      - 80
     restart: always
     environment:
       WORDPRESS_DB_HOST: ${MYSQL_DB_HOST}:${MYSQL_PORT}
