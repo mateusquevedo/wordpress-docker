@@ -32,6 +32,3 @@ services:
       LETSENCRYPT_HOST: ${URL_SITE}
       LETSENCRYPT_EMAIL: suporte@agenciamobidick.com.br
     network_mode: bridge
-       
-volumes:
-  ${NOME_SITE}_db:
