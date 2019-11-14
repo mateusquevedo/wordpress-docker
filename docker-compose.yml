@@ -20,7 +20,7 @@ services:
     working_dir: /var/www/html
     volumes:
       - ${NOME_SITE}_html:/var/www/html
-      - ${NOME_SITE}_conf/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+      - ${NOME_SITE}_conf.d:/usr/local/etc/php/conf.d
     ports:
       - 80
     restart: always
