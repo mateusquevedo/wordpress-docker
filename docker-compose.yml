@@ -1,7 +1,7 @@
 version: '2'
 services:
   wp_db:
-    image: percona/percona-server:5.7
+    image: mysql:5.7
     container_name: ${NOME_SITE}_db
     volumes:
       - ${NOME_SITE}_db:/var/lib/mysql
@@ -16,10 +16,11 @@ services:
 
   wp_html:
     container_name: ${NOME_SITE}_html
-    image: luizeof/dockerpress
+    image: wordpress:latest
     working_dir: /var/www/html
     volumes:
       - ${NOME_SITE}_html:/var/www/html
+      - ${NOME_SITE}_conf/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
     ports:
       - 80
     restart: always
