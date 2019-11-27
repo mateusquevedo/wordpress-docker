@@ -7,12 +7,13 @@ services:
       - ${NOME_SITE}_db:/var/lib/mysql
     command:
       --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci
-    restart: always
     ports:
       - ${MYSQL_PORT}:3306
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_DB_PASS}
     network_mode: bridge
+    mem_limit: 256m
+    restart: unless-stopped
 
   wp_html:
     container_name: ${NOME_SITE}_html
@@ -23,7 +24,6 @@ services:
       - ${NOME_SITE}_conf.d:/usr/local/etc/php/conf.d
     ports:
       - 80
-    restart: always
     environment:
       WORDPRESS_DB_HOST: ${MYSQL_DB_HOST}:${MYSQL_PORT}
       WORDPRESS_DB_USER: root
@@ -33,3 +33,5 @@ services:
       LETSENCRYPT_HOST: ${URL_SITE}
       LETSENCRYPT_EMAIL: suporte@agenciamobidick.com.br
     network_mode: bridge
+    mem_limit: 256m
+    restart: unless-stopped
